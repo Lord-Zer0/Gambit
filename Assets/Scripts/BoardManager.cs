@@ -7,11 +7,30 @@ public class BoardManager : MonoBehaviour {
 	private const float TILE_OFFSET = 0.5f;
 	private int selectAlpha;
 	private int selectNum;
+	public List<GameObject> unitPrefabs;
+	public List<GameObject> activeUnits;
 
 	private Vector3 offsetFix = new Vector3(-0.5f, 0f, -0.5f);
 
 	private void Update() {
+		UpdateSelection();
 		DrawChessBoard();
+	}
+
+	private void UpdateSelection() {
+		if (!Camera.main) {
+			return;
+		}
+
+		RaycastHit hit;
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("BoardLevel"))) {
+			selectAlpha = (int)hit.point.x;
+			selectNum = (int)hit.point.z;
+		} else {
+			selectAlpha = -1;
+			selectNum = -1;
+		}
+		print(selectAlpha + selectNum);
 	}
 
 	private void DrawChessBoard() {
@@ -27,6 +46,19 @@ public class BoardManager : MonoBehaviour {
 				start = (Vector3.right * j) + offsetFix;
 				Debug.DrawLine(start, start + heightLine);
 			}
+		}
+
+		// Draw Selection
+		if (selectAlpha >= 0 && selectNum >= 0) {
+			Debug.DrawLine(
+				Vector3.forward * selectNum + Vector3.right * selectAlpha,
+				Vector3.forward * (selectNum + 1) + Vector3.right * (selectAlpha + 1)
+			);
+
+			Debug.DrawLine(
+				Vector3.forward * (selectNum + 1) + Vector3.right * (selectAlpha + 1),
+				Vector3.forward * selectNum + Vector3.right * selectAlpha
+			);
 		}
 	}
 }
