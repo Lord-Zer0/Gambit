@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pawn : Chessman {
 	public override bool[,] PossibleMoves() {
-        bool[,] rVal = new bool[8, 8]; 
+        bool[,] rm = new bool[8, 8]; 
         Chessman c1, c2;
 
         // White team move
@@ -13,7 +13,7 @@ public class Pawn : Chessman {
             if (CurrentX != 0 && CurrentZ != 7) {
                 c1 = BoardManager.Instance.armyField[CurrentX - 1, CurrentZ + 1];
                 if (c1 != null && !c1.isWhite) {
-                    rVal[CurrentX - 1, CurrentZ + 1] = true;
+                    rm[CurrentX - 1, CurrentZ + 1] = true;
                 }
             }
 
@@ -21,7 +21,7 @@ public class Pawn : Chessman {
             if (CurrentX != 7 && CurrentZ != 7) {
                 c1 = BoardManager.Instance.armyField[CurrentX + 1, CurrentZ + 1];
                 if (c1 != null && !c1.isWhite) {
-                    rVal[CurrentX + 1, CurrentZ + 1] = true;
+                    rm[CurrentX + 1, CurrentZ + 1] = true;
                 }
             }
 
@@ -29,7 +29,7 @@ public class Pawn : Chessman {
             if (CurrentZ != 7) {
                 c1 = BoardManager.Instance.armyField[CurrentX, CurrentZ + 1];
                 if (c1 == null ) {
-                    rVal[CurrentX, CurrentZ + 1] = true;
+                    rm[CurrentX, CurrentZ + 1] = true;
                 }
             }
 
@@ -38,7 +38,7 @@ public class Pawn : Chessman {
                 c1 = BoardManager.Instance.armyField[CurrentX, CurrentZ + 1];
                 c2 = BoardManager.Instance.armyField[CurrentX, CurrentZ + 2];
                 if(c1 == null && c2 == null) {
-                    rVal[CurrentX, CurrentZ + 2] = true;
+                    rm[CurrentX, CurrentZ + 2] = true;
                 }
             }
 
@@ -48,7 +48,7 @@ public class Pawn : Chessman {
             if (CurrentX != 0 && CurrentZ != 0) {
                 c1 = BoardManager.Instance.armyField[CurrentX - 1, CurrentZ - 1];
                 if (c1 != null && c1.isWhite) {
-                    rVal[CurrentX - 1, CurrentZ - 1] = true;
+                    rm[CurrentX - 1, CurrentZ - 1] = true;
                 }
             }
 
@@ -56,7 +56,7 @@ public class Pawn : Chessman {
             if (CurrentX != 7 && CurrentZ != 0) {
                 c1 = BoardManager.Instance.armyField[CurrentX + 1, CurrentZ - 1];
                 if (c1 != null && c1.isWhite) {
-                    rVal[CurrentX + 1, CurrentZ - 1] = true;
+                    rm[CurrentX + 1, CurrentZ - 1] = true;
                 }
             }
 
@@ -64,7 +64,7 @@ public class Pawn : Chessman {
             if (CurrentZ != 0) {
                 c1 = BoardManager.Instance.armyField[CurrentX, CurrentZ - 1];
                 if (c1 == null ) {
-                    rVal[CurrentX, CurrentZ - 1] = true;
+                    rm[CurrentX, CurrentZ - 1] = true;
                 }
             }
 
@@ -73,12 +73,12 @@ public class Pawn : Chessman {
                 c1 = BoardManager.Instance.armyField[CurrentX, CurrentZ - 1];
                 c2 = BoardManager.Instance.armyField[CurrentX, CurrentZ - 2];
                 if(c1 == null && c2 == null) {
-                    rVal[CurrentX, CurrentZ - 2] = true;
+                    rm[CurrentX, CurrentZ - 2] = true;
                 }
             }
 
         }
 
-        return rVal;
+        return rm;
     }
 }

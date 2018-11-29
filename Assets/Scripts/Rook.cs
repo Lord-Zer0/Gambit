@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rook : Chessman {
 	public override bool[,] PossibleMoves() {
-        bool[,] rVal = new bool[8, 8];
+        bool[,] rm = new bool[8, 8];
         Chessman c1;
         int i;
 
@@ -17,10 +17,10 @@ public class Rook : Chessman {
             }
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
-                rVal[i, CurrentZ] = true;
+                rm[i, CurrentZ] = true;
             } else {
                 if (c1.isWhite != this.isWhite) {
-                    rVal[i, CurrentZ] = true;
+                    rm[i, CurrentZ] = true;
                 }
                 break;
             }
@@ -35,10 +35,10 @@ public class Rook : Chessman {
             }
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
-                rVal[i, CurrentZ] = true;
+                rm[i, CurrentZ] = true;
             } else {
                 if (c1.isWhite != this.isWhite) {
-                    rVal[i, CurrentZ] = true;
+                    rm[i, CurrentZ] = true;
                 }
                 break;
             }
@@ -53,10 +53,10 @@ public class Rook : Chessman {
             }
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
-                rVal[CurrentX, i] = true;
+                rm[CurrentX, i] = true;
             } else {
                 if (c1.isWhite != this.isWhite) {
-                    rVal[CurrentX, i] = true;
+                    rm[CurrentX, i] = true;
                 }
                 break;
             }
@@ -71,15 +71,15 @@ public class Rook : Chessman {
             }
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
-                rVal[CurrentX, i] = true;
+                rm[CurrentX, i] = true;
             } else {
                 if (c1.isWhite != this.isWhite) {
-                    rVal[CurrentX, i] = true;
+                    rm[CurrentX, i] = true;
                 }
                 break;
             }
         }
 
-        return rVal;
+        return rm;
     }
 }
