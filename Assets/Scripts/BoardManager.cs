@@ -49,6 +49,7 @@ public class BoardManager : MonoBehaviour {
 		allowedMoves = armyField[x, z].PossibleMoves();
 		selectedUnit = armyField[x, z];
 		print("Unit selected at: <" + x + ',' + z + '>');
+		PrintArmies();
 
 		BoardVisuals.Instance.HighlightValidMoves(allowedMoves);
 	}
@@ -83,10 +84,6 @@ public class BoardManager : MonoBehaviour {
 		selectedUnit = null;
 	}
 
-	private void TestRayCast() {
-		//int LayerMask = 1 << 9;
-	}
-
 	private void UpdateSelection() {
 		if (!Camera.main) {
 			print("Camera not found");
@@ -96,15 +93,15 @@ public class BoardManager : MonoBehaviour {
 
 		RaycastHit hit;
 
-		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, /* LayerMask.GetMask("BoardLevel")*/ BoardMask)) {
-			selectX = (int)hit.point.x;
-			SelectZ = (int)hit.point.z;
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50.0f, BoardMask)) {
+			selectX = (int)(hit.point.x + 0.5);
+			SelectZ = (int)(hit.point.z + 0.5);
 		} else {
 			selectX = -1;
 			SelectZ = -1;
 		}
 
-		print("V1: " + selectX + " V2: " + SelectZ);
+		//print("V1: " + selectX + " V2: " + SelectZ);
 	}
 
 	private void SpawnUnit(int index, int x, int z) {
@@ -195,10 +192,10 @@ public class BoardManager : MonoBehaviour {
 
 		for (int i = 0; i <= 8; i++) {
 			Vector3 start = (Vector3.forward * i) + offsetFix;
-			Debug.DrawLine(start, start + widthLine, Color.red);
+			Debug.DrawLine(start, start + widthLine, Color.yellow);
 			for (int j = 0; j <= 8; j++) {
 				start = (Vector3.right * j) + offsetFix;
-				Debug.DrawLine(start, start + heightLine, Color.red);
+				Debug.DrawLine(start, start + heightLine, Color.yellow);
 			}
 		}
 
@@ -217,4 +214,22 @@ public class BoardManager : MonoBehaviour {
 			);
 		}
 	}
+
+	public void PrintArmies() {
+		string o = "[ ";
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (armyField[i, j] != null) {
+					o += "x, ";
+				} else {
+					o += " , ";
+				}
+			}
+			o += "\r\n";
+		}
+		o += "]";
+
+		print(o);
+	}
+	
 }
