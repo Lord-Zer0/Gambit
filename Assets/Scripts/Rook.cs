@@ -15,6 +15,7 @@ public class Rook : Chessman {
             if (i >= 8) {
                 break;
             }
+
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
                 rm[i, CurrentZ] = true;
@@ -33,6 +34,7 @@ public class Rook : Chessman {
             if (i < 0) {
                 break;
             }
+
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
                 rm[i, CurrentZ] = true;
@@ -51,6 +53,7 @@ public class Rook : Chessman {
             if (i >= 8) {
                 break;
             }
+
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
                 rm[CurrentX, i] = true;
@@ -69,6 +72,7 @@ public class Rook : Chessman {
             if (i < 0) {
                 break;
             }
+            
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
                 rm[CurrentX, i] = true;
