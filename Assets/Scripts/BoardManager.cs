@@ -31,6 +31,7 @@ public class BoardManager : MonoBehaviour {
 				SelectUnit(selectX, SelectZ);
 			} else {
 				// Move to a valid space
+				MoveUnit(selectX, SelectZ);
 			}
 		}
 	}
@@ -40,6 +41,18 @@ public class BoardManager : MonoBehaviour {
 			return; 
 		if (armyField[x, z].isWhite != isWhiteTurn)
 			return;
+
+		selectedUnit = armyField[x, z];
+	}
+
+	private void MoveUnit(int x, int z) {
+		if (selectedUnit.PossibleMove(x, z)) {
+			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
+			selectedUnit.transform.position = AlignTile(x, z);
+			armyField[x, z] = selectedUnit;
+		}
+
+		selectedUnit = null;
 	}
 
 	private void UpdateSelection() {
@@ -48,6 +61,7 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		RaycastHit hit;
+
 		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("BoardLevel"))) {
 			selectX = (int)hit.point.x;
 			SelectZ = (int)hit.point.z;
@@ -55,6 +69,7 @@ public class BoardManager : MonoBehaviour {
 			selectX = -1;
 			SelectZ = -1;
 		}
+		
 		print(selectX + SelectZ);
 	}
 
@@ -63,14 +78,14 @@ public class BoardManager : MonoBehaviour {
 		if (index > 5) {
 			quat = orientation;
 		}
-		GameObject go = Instantiate(unitPrefabs[index], GetTileCentre(x, z), quat) as GameObject;
+		GameObject go = Instantiate(unitPrefabs[index], AlignTile(x, z), quat) as GameObject;
 		go.transform.SetParent(transform);
 		armyField[x, z] = go.GetComponent<Chessman> ();
 		armyField[x, z].SetPosition(x, z);
 		activeUnits.Add(go);
 	}
 
-	private Vector3 GetTileCentre(int x, int z) {
+	private Vector3 AlignTile(int x, int z) {
 		Vector3 origin = Vector3.zero;
 		origin.x += (TILE_SIZE * x);
 		origin.z += (TILE_SIZE * z);

@@ -11,4 +11,8 @@ public abstract class Chessman : MonoBehaviour {
 		CurrentX = x;
 		CurrentZ = z;
 	}
+
+	public virtual bool PossibleMove(int x, int z) {
+		return true;
+	}
 }

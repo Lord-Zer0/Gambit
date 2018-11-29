@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4077973635988118}
   - component: {fileID: 33350573339663346}
   - component: {fileID: 23390122347641660}
+  - component: {fileID: 114572077149293068}
   m_Layer: 0
   m_Name: Black Knight
   m_TagString: Knight
@@ -83,3 +84,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158228362899534}
   m_Mesh: {fileID: 4300000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
+--- !u!114 &114572077149293068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158228362899534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd6c2d2a675a0143a673f3995d28949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWhite: 0

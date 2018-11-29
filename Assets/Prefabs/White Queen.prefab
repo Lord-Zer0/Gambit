@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4990791587237758}
   - component: {fileID: 33073204866689714}
   - component: {fileID: 23913075203346116}
+  - component: {fileID: 114155370716963476}
   m_Layer: 0
   m_Name: White Queen
   m_TagString: Queen
@@ -83,3 +84,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625636025045998}
   m_Mesh: {fileID: 4300000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
+--- !u!114 &114155370716963476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625636025045998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6c1def8fd3981468414b49ad09fffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWhite: 1
