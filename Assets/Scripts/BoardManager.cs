@@ -195,10 +195,10 @@ public class BoardManager : MonoBehaviour {
 
 		for (int i = 0; i <= 8; i++) {
 			Vector3 start = (Vector3.forward * i) + offsetFix;
-			Debug.DrawLine(start, start + widthLine, Color.yellow);
+			Debug.DrawLine(start, start + widthLine, Color.red);
 			for (int j = 0; j <= 8; j++) {
 				start = (Vector3.right * j) + offsetFix;
-				Debug.DrawLine(start, start + heightLine, Color.yellow);
+				Debug.DrawLine(start, start + heightLine, Color.red);
 			}
 		}
 
@@ -207,13 +207,13 @@ public class BoardManager : MonoBehaviour {
 			Debug.DrawLine(
 				(Vector3.forward * SelectZ + Vector3.right * selectX) + offsetFix,
 				(Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1) + offsetFix),
-				Color.yellow
+				Color.red
 			);
 
 			Debug.DrawLine(
 				(Vector3.forward * (SelectZ + 1) + Vector3.right * selectX + offsetFix),
 				(Vector3.forward * SelectZ + Vector3.right * (selectX + 1) + offsetFix),
-				Color.yellow
+				Color.red
 			);
 		}
 	}
