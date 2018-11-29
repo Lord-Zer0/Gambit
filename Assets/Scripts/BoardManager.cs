@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
+
+	public Chessman[,] armyField { set; get;}
+	private Chessman selectedUnit;
 	private const float TILE_SIZE = 1.0f;
 	private const float TILE_OFFSET = 0.5f;
 	private int selectAlpha;
@@ -38,13 +41,15 @@ public class BoardManager : MonoBehaviour {
 		print(selectAlpha + selectNum);
 	}
 
-	private void SpawnUnit(int index, Vector3 pos) {
+	private void SpawnUnit(int index, int x, int z) {
 		Quaternion quat = Quaternion.identity;
 		if (index > 5) {
 			quat = orientation;
 		}
-		GameObject go = Instantiate(unitPrefabs[index], pos, quat) as GameObject;
+		GameObject go = Instantiate(unitPrefabs[index], GetTileCentre(x, z), quat) as GameObject;
 		go.transform.SetParent(transform);
+		armyField[x, z] = go.GetComponent<Chessman> ();
+		armyField[x, z].SetPosition(x, z);
 		activeUnits.Add(go);
 	}
 
@@ -56,6 +61,8 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	private void SpawnFullBoard() {
+
+		armyField = new Chessman[8, 8];
 		activeUnits = new List<GameObject>();
 
 		// ==============================
@@ -64,26 +71,26 @@ public class BoardManager : MonoBehaviour {
 
 		// Pawns ------------------------
 		for (int i = 0; i < 8; i++) {
-			SpawnUnit(0, GetTileCentre(i,1));
+			SpawnUnit(0, i, 1);
 		}
 
 		// Rooks ------------------------
-		SpawnUnit(1, GetTileCentre(0,0));
-		SpawnUnit(1, GetTileCentre(7,0));
+		SpawnUnit(1, 0, 0);
+		SpawnUnit(1, 7, 0);
 		
 		// Knights ----------------------
-		SpawnUnit(2, GetTileCentre(1,0));
-		SpawnUnit(2, GetTileCentre(6,0));
+		SpawnUnit(2, 1, 0);
+		SpawnUnit(2, 6, 0);
 
 		// Bishops ----------------------
-		SpawnUnit(3, GetTileCentre(2,0));
-		SpawnUnit(3, GetTileCentre(5,0));
+		SpawnUnit(3, 2, 0);
+		SpawnUnit(3, 5, 0);
 
 		// Queen ------------------------
-		SpawnUnit(4, GetTileCentre(3,0));
+		SpawnUnit(4, 3, 0);
 
 		// King -------------------------
-		SpawnUnit(5, GetTileCentre(4,0));
+		SpawnUnit(5, 4, 0);
 
 		// ==============================
 		// Spawn all Black Units
@@ -91,26 +98,26 @@ public class BoardManager : MonoBehaviour {
 
 		// Pawns ------------------------
 		for (int i = 0; i < 8; i++) {
-			SpawnUnit(6, GetTileCentre(i,6));
+			SpawnUnit(6, i, 6);
 		}
 
 		// Rooks ------------------------
-		SpawnUnit(7, GetTileCentre(0,7));
-		SpawnUnit(7, GetTileCentre(7,7));
+		SpawnUnit(7, 0, 7);
+		SpawnUnit(7, 7, 7);
 		
 		// Knights ----------------------
-		SpawnUnit(8, GetTileCentre(1,7));
-		SpawnUnit(8, GetTileCentre(6,7));
+		SpawnUnit(8, 1, 7);
+		SpawnUnit(8, 6, 7);
 
 		// Bishops ----------------------
-		SpawnUnit(9, GetTileCentre(2,7));
-		SpawnUnit(9, GetTileCentre(5,7));
+		SpawnUnit(9, 2, 7);
+		SpawnUnit(9, 5, 7);
 
 		// Queen ------------------------
-		SpawnUnit(10, GetTileCentre(3,7));
+		SpawnUnit(10, 3, 7);
 
 		// King -------------------------
-		SpawnUnit(11, GetTileCentre(4,7));
+		SpawnUnit(11, 4, 7);
 
 	}
 
