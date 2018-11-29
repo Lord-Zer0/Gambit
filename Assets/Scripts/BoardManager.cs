@@ -29,11 +29,13 @@ public class BoardManager : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0)) {
 			if (selectX >= 0 && SelectZ >= 0) {
-				// Select the target unit
-				SelectUnit(selectX, SelectZ);
-			} else {
-				// Move to a valid space
-				MoveUnit(selectX, SelectZ);
+				if (selectedUnit == null) {
+					// Select the unit
+					SelectUnit(selectX, SelectZ);
+				} else {
+					// Move the unit
+					MoveUnit(selectX, SelectZ);
+				}
 			}
 		}
 	}
