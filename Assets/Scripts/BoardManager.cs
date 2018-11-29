@@ -52,6 +52,22 @@ public class BoardManager : MonoBehaviour {
 
 	private void MoveUnit(int x, int z) {
 		if (allowedMoves[x, z]) {
+			Chessman c = armyField[x, z];
+
+			if (c != null && c.isWhite != isWhiteTurn) {
+				// Capture a piece
+
+				// If a king is captured
+				if (c.GetType() == typeof(King)) {
+					// End the game
+					return;
+				}
+
+				activeUnits.Remove(c.gameObject);
+				Destroy(c.gameObject);
+
+			}
+
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			selectedUnit.SetPosition(x, z);

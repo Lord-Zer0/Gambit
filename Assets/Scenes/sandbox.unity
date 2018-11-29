@@ -266,9 +266,9 @@ GameObject:
   - component: {fileID: 1096402751}
   - component: {fileID: 1096402750}
   - component: {fileID: 1096402752}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Board
-  m_TagString: Untagged
+  m_TagString: Board
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
