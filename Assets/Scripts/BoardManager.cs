@@ -45,8 +45,21 @@ public class BoardManager : MonoBehaviour {
 			return; 
 		if (armyField[x, z].isWhite != isWhiteTurn)
 			return;
-		
+
+		bool hasMovement = false;
 		allowedMoves = armyField[x, z].PossibleMoves();
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (allowedMoves[i, j]) {
+					hasMovement = true;
+					break;
+				}
+			}
+		}
+		if (!hasMovement)
+			return;
+
 		selectedUnit = armyField[x, z];
 		print("Unit selected at: <" + x + ',' + z + '>');
 		PrintArmies();
@@ -66,7 +79,7 @@ public class BoardManager : MonoBehaviour {
 
 				// If a king is captured
 				if (c.GetType() == typeof(King)) {
-					// End the game
+					EndGame();
 					return;
 				}
 
@@ -247,6 +260,22 @@ public class BoardManager : MonoBehaviour {
 		o += "]";
 
 		print(o);
+	}
+
+	private void EndGame() {
+		if (isWhiteTurn) {
+			print("White team wins");
+		} else {
+			print("Black team wins");
+		}
+
+		foreach (GameObject u in activeUnits) {
+			Destroy(u);
+		}
+
+		isWhiteTurn = true;
+		BoardVisuals.Instance.HideHighlights();
+		SpawnFullBoard();
 	}
 	
 }
