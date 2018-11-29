@@ -19,6 +19,7 @@ public class BoardManager : MonoBehaviour {
 	private Vector3 offsetFix = new Vector3(-0.5f, 0f, -0.5f);
 
 	private void Start() {
+		Instance = this;
 		SpawnFullBoard();
 	}
 
@@ -53,11 +54,13 @@ public class BoardManager : MonoBehaviour {
 		if (allowedMoves[x, z]) {
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
+			selectedUnit.SetPosition(x, z);
 			armyField[x, z] = selectedUnit;
 			// Toggle turn order
 			isWhiteTurn = !isWhiteTurn;
 		}
 
+		BoardVisuals.Instance.HideHighlights();
 		selectedUnit = null;
 	}
 
