@@ -46,6 +46,7 @@ public class BoardManager : MonoBehaviour {
 		
 		allowedMoves = armyField[x, z].PossibleMoves();
 		selectedUnit = armyField[x, z];
+		print("Unit selected at: <" + x + ',' + z + '>');
 
 		BoardVisuals.Instance.HighlightValidMoves(allowedMoves);
 	}
@@ -186,29 +187,31 @@ public class BoardManager : MonoBehaviour {
 
 	private void DrawChessBoard() {
 		Vector3 widthLine = Vector3.right * 8;
-		//widthLine 
+		//widthLine.x += offsetFix.x;
 		Vector3 heightLine = Vector3.forward * 8;
-		//heightLine += offsetFix;
+		//heightLine.z += offsetFix.z;
 
 		for (int i = 0; i <= 8; i++) {
 			Vector3 start = (Vector3.forward * i) + offsetFix;
-			Debug.DrawLine(start, start + widthLine);
+			Debug.DrawLine(start, start + widthLine, Color.yellow);
 			for (int j = 0; j <= 8; j++) {
 				start = (Vector3.right * j) + offsetFix;
-				Debug.DrawLine(start, start + heightLine);
+				Debug.DrawLine(start, start + heightLine, Color.yellow);
 			}
 		}
 
 		// Draw Selection
 		if (selectX >= 0 && SelectZ >= 0) {
 			Debug.DrawLine(
-				Vector3.forward * SelectZ + Vector3.right * selectX,
-				Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1)
+				(Vector3.forward * SelectZ + Vector3.right * selectX) + offsetFix,
+				(Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1) + offsetFix),
+				Color.yellow
 			);
 
 			Debug.DrawLine(
-				Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1),
-				Vector3.forward * SelectZ + Vector3.right * selectX
+				(Vector3.forward * (SelectZ + 1) + Vector3.right * selectX + offsetFix),
+				(Vector3.forward * SelectZ + Vector3.right * (selectX + 1) + offsetFix),
+				Color.yellow
 			);
 		}
 	}
