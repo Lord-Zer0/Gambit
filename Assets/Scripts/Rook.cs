@@ -20,7 +20,7 @@ public class Rook : Chessman {
             if (c1 == null) {
                 rm[i, CurrentZ] = true;
             } else {
-                if (c1.isWhite != this.isWhite) {
+                if (this.isWhite != c1.isWhite) {
                     rm[i, CurrentZ] = true;
                 }
                 break;
@@ -39,7 +39,7 @@ public class Rook : Chessman {
             if (c1 == null) {
                 rm[i, CurrentZ] = true;
             } else {
-                if (c1.isWhite != this.isWhite) {
+                if (this.isWhite != c1.isWhite) {
                     rm[i, CurrentZ] = true;
                 }
                 break;
@@ -58,7 +58,7 @@ public class Rook : Chessman {
             if (c1 == null) {
                 rm[CurrentX, i] = true;
             } else {
-                if (c1.isWhite != this.isWhite) {
+                if (this.isWhite != c1.isWhite) {
                     rm[CurrentX, i] = true;
                 }
                 break;
@@ -77,7 +77,7 @@ public class Rook : Chessman {
             if (c1 == null) {
                 rm[CurrentX, i] = true;
             } else {
-                if (c1.isWhite != this.isWhite) {
+                if (this.isWhite != c1.isWhite) {
                     rm[CurrentX, i] = true;
                 }
                 break;
