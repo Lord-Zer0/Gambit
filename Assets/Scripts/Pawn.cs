@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Pawn : Chessman {
 	public override bool[,] PossibleMoves() {
+        int[] e = BoardManager.Instance.EnPassant;
         bool[,] rm = new bool[8, 8]; 
         Chessman c1, c2;
 
         // White team move
         if (isWhite) {
             // Diagonal Left ----------------------------------------------------
-            if (CurrentX != 0 && CurrentZ != 7) {
+            if (CurrentX != 0 && CurrentZ != 7) { 
+                if(e[0] == CurrentX - 1 && e[1] == CurrentZ + 1) {
+                    rm[CurrentX - 1, CurrentZ + 1] = true;
+                } 
                 c1 = BoardManager.Instance.armyField[CurrentX - 1, CurrentZ + 1];
                 if (c1 != null && !c1.isWhite) {
                     rm[CurrentX - 1, CurrentZ + 1] = true;
@@ -19,6 +23,9 @@ public class Pawn : Chessman {
 
             // Diagonal Right ---------------------------------------------------
             if (CurrentX != 7 && CurrentZ != 7) {
+                if(e[0] == CurrentX + 1 && e[1] == CurrentZ + 1) {
+                    rm[CurrentX  + 1, CurrentZ + 1] = true;
+                } 
                 c1 = BoardManager.Instance.armyField[CurrentX + 1, CurrentZ + 1];
                 if (c1 != null && !c1.isWhite) {
                     rm[CurrentX + 1, CurrentZ + 1] = true;
@@ -46,6 +53,9 @@ public class Pawn : Chessman {
         } else {
             // Diagonal Left ----------------------------------------------------
             if (CurrentX != 0 && CurrentZ != 0) {
+                if(e[0] == CurrentX - 1 && e[1] == CurrentZ + 1) {
+                    rm[CurrentX - 1, CurrentZ - 1] = true;
+                } 
                 c1 = BoardManager.Instance.armyField[CurrentX - 1, CurrentZ - 1];
                 if (c1 != null && c1.isWhite) {
                     rm[CurrentX - 1, CurrentZ - 1] = true;
@@ -54,6 +64,9 @@ public class Pawn : Chessman {
 
             // Diagonal Right ---------------------------------------------------
             if (CurrentX != 7 && CurrentZ != 0) {
+                if(e[0] == CurrentX - 1 && e[1] == CurrentZ + 1) {
+                    rm[CurrentX + 1, CurrentZ - 1] = true;
+                } 
                 c1 = BoardManager.Instance.armyField[CurrentX + 1, CurrentZ - 1];
                 if (c1 != null && c1.isWhite) {
                     rm[CurrentX + 1, CurrentZ - 1] = true;

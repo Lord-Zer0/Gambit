@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
 
-	public static BoardManager Instance { set; get;}
+	public static BoardManager Instance {set; get;}
 	private bool[,] allowedMoves;
-	public Chessman[,] armyField { set; get;}
+	public Chessman[,] armyField {set; get;}
 	private Chessman selectedUnit;
 	private const float TILE_SIZE = 1.0f;
 	private const float TILE_OFFSET = 0.5f;
 	private int selectX;
 	private int SelectZ;
+	public int[] EnPassant {set; get;}
 	private Quaternion orientation = Quaternion.Euler(0, 180, 0);
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
@@ -85,6 +86,20 @@ public class BoardManager : MonoBehaviour {
 
 			}
 
+			EnPassant[0] = -1;
+			EnPassant[1] = -1;
+			if (selectedUnit.GetType() == typeof(Pawn)) {
+				if (selectedUnit.CurrentZ == 1 && z == 3) {
+					// When moving two steps forwards
+					EnPassant[0] = x;
+					EnPassant[1] = z - 1;
+				} else if (selectedUnit.CurrentZ == 6 && z == 4) {
+					// When moving two steps forwards
+					EnPassant[0] = x;
+					EnPassant[1] = z + 1;
+				}
+			}
+
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			selectedUnit.SetPosition(x, z);
@@ -139,6 +154,7 @@ public class BoardManager : MonoBehaviour {
 	private void SpawnFullBoard() {
 
 		armyField = new Chessman[8, 8];
+		EnPassant = new int[2]{-1, -1};
 		activeUnits = new List<GameObject>();
 
 		// ==============================
