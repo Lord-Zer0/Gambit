@@ -80,14 +80,20 @@ public class BoardManager : MonoBehaviour {
 		selectedUnit = null;
 	}
 
+	private void TestRayCast() {
+		//int LayerMask = 1 << 9;
+	}
+
 	private void UpdateSelection() {
 		if (!Camera.main) {
+			print("Camera not found");
 			return;
 		}
+		int BoardMask = 1 << 9;
 
 		RaycastHit hit;
 
-		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("BoardLevel"))) {
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, /* LayerMask.GetMask("BoardLevel")*/ BoardMask)) {
 			selectX = (int)hit.point.x;
 			SelectZ = (int)hit.point.z;
 		} else {
@@ -95,7 +101,7 @@ public class BoardManager : MonoBehaviour {
 			SelectZ = -1;
 		}
 
-		print(selectX + SelectZ);
+		print("V1: " + selectX + " V2: " + SelectZ);
 	}
 
 	private void SpawnUnit(int index, int x, int z) {

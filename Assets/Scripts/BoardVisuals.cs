@@ -29,7 +29,7 @@ public class BoardVisuals : MonoBehaviour {
 				if (moves[i, j]) {
 					GameObject go = GetHighlightObject();
 					go.SetActive(true);
-					go.transform.position = new Vector3(i, 0, j);
+					go.transform.position = new Vector3(i, 0.01f, j);
 				}
 			}
 		}
