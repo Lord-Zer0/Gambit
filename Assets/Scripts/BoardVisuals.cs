@@ -15,7 +15,7 @@ public class BoardVisuals : MonoBehaviour {
 	private GameObject GetHighlightObject() {
 		GameObject go = highlights.Find(g => !g.activeSelf);
 
-		if (go = null) {
+		if (go == null) {
 			go = Instantiate(highlightPrefab);
 			highlights.Add(go);
 		}
