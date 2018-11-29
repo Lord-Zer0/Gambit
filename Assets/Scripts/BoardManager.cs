@@ -55,20 +55,20 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	private void MoveUnit(int x, int z) {
+		PrintMoves();
 		if (allowedMoves[x, z]) {
 			Chessman c = armyField[x, z];
 
 			if (c != null && c.isWhite != isWhiteTurn) {
 				// Capture a piece
+				activeUnits.Remove(c.gameObject);
+				Destroy(c.gameObject);
 
 				// If a king is captured
 				if (c.GetType() == typeof(King)) {
 					// End the game
 					return;
 				}
-
-				activeUnits.Remove(c.gameObject);
-				Destroy(c.gameObject);
 
 			}
 
@@ -221,6 +221,23 @@ public class BoardManager : MonoBehaviour {
 			for (int j = 0; j < 8; j++) {
 				if (armyField[i, j] != null) {
 					o += "x, ";
+				} else {
+					o += " , ";
+				}
+			}
+			o += "\r\n";
+		}
+		o += "]";
+
+		print(o);
+	}
+
+	public void PrintMoves() {
+		string o = "[ ";
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (allowedMoves[i, j]) {
+					o += "T, ";
 				} else {
 					o += " , ";
 				}
