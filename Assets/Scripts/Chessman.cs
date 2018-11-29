@@ -12,7 +12,7 @@ public abstract class Chessman : MonoBehaviour {
 		CurrentZ = z;
 	}
 
-	public virtual bool PossibleMove(int x, int z) {
-		return true;
+	public virtual bool[,] PossibleMoves() {
+		return new bool[8, 8];
 	}
 }

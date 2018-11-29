@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
 
+	public static BoardManager Instance { set; get;}
+	private bool[,] allowedMoves;
 	public Chessman[,] armyField { set; get;}
 	private Chessman selectedUnit;
 	private const float TILE_SIZE = 1.0f;
@@ -14,7 +16,6 @@ public class BoardManager : MonoBehaviour {
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
 	public bool isWhiteTurn = true;
-
 	private Vector3 offsetFix = new Vector3(-0.5f, 0f, -0.5f);
 
 	private void Start() {
@@ -41,12 +42,15 @@ public class BoardManager : MonoBehaviour {
 			return; 
 		if (armyField[x, z].isWhite != isWhiteTurn)
 			return;
-
+		
+		allowedMoves = armyField[x, z].PossibleMoves();
 		selectedUnit = armyField[x, z];
+
+		BoardVisuals.Instance.HighlightValidMoves(allowedMoves);
 	}
 
 	private void MoveUnit(int x, int z) {
-		if (selectedUnit.PossibleMove(x, z)) {
+		if (allowedMoves[x, z]) {
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			armyField[x, z] = selectedUnit;
