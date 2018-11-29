@@ -9,7 +9,12 @@ public class Rook : Chessman {
         int i;
 
         // Right Movement ---------------------------------------------------
-        for (i = CurrentX; i < 8; i++) {
+        i = CurrentX;
+        while (true) {
+            i++;
+            if (i >= 8) {
+                break;
+            }
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
                 rVal[i, CurrentZ] = true;
@@ -22,7 +27,12 @@ public class Rook : Chessman {
         }
 
         // Left Movement ----------------------------------------------------
-        for (i = CurrentX; i >= 0; i--) {
+        i = CurrentX;
+        while (true) {
+            i--;
+            if (i < 0) {
+                break;
+            }
             c1 = BoardManager.Instance.armyField[i, CurrentZ];
             if (c1 == null) {
                 rVal[i, CurrentZ] = true;
@@ -35,7 +45,12 @@ public class Rook : Chessman {
         }
 
         // Upwards Movement -------------------------------------------------
-        for (i = CurrentZ; i < 8; i++) {
+        i = CurrentZ;
+        while (true) {
+            i++;
+            if (i >= 8) {
+                break;
+            }
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
                 rVal[CurrentX, i] = true;
@@ -48,7 +63,12 @@ public class Rook : Chessman {
         }
 
         // Downwards Movement -----------------------------------------------
-        for (i = CurrentZ; i >= 0; i--) {
+        i = CurrentZ;
+        while (true) {
+            i--;
+            if (i < 0) {
+                break;
+            }
             c1 = BoardManager.Instance.armyField[CurrentX, i];
             if (c1 == null) {
                 rVal[CurrentX, i] = true;
