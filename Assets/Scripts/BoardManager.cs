@@ -50,6 +50,8 @@ public class BoardManager : MonoBehaviour {
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			armyField[x, z] = selectedUnit;
+			// Toggle turn order
+			isWhiteTurn = !isWhiteTurn;
 		}
 
 		selectedUnit = null;
@@ -69,7 +71,7 @@ public class BoardManager : MonoBehaviour {
 			selectX = -1;
 			SelectZ = -1;
 		}
-		
+
 		print(selectX + SelectZ);
 	}
 
