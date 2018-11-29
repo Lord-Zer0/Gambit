@@ -42,6 +42,7 @@ public class Pawn : Chessman {
                 }
             }
 
+        // Black team move
         } else {
             // Diagonal Left ----------------------------------------------------
             if (CurrentX != 0 && CurrentZ != 0) {
