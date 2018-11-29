@@ -7,10 +7,15 @@ public class BoardManager : MonoBehaviour {
 	private const float TILE_OFFSET = 0.5f;
 	private int selectAlpha;
 	private int selectNum;
+	private Quaternion orientation = Quaternion.Euler(0, 180, 0);
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
 
 	private Vector3 offsetFix = new Vector3(-0.5f, 0f, -0.5f);
+
+	private void Start() {
+		SpawnFullBoard();
+	}
 
 	private void Update() {
 		UpdateSelection();
@@ -31,6 +36,82 @@ public class BoardManager : MonoBehaviour {
 			selectNum = -1;
 		}
 		print(selectAlpha + selectNum);
+	}
+
+	private void SpawnUnit(int index, Vector3 pos) {
+		Quaternion quat = Quaternion.identity;
+		if (index > 5) {
+			quat = orientation;
+		}
+		GameObject go = Instantiate(unitPrefabs[index], pos, quat) as GameObject;
+		go.transform.SetParent(transform);
+		activeUnits.Add(go);
+	}
+
+	private Vector3 GetTileCentre(int x, int z) {
+		Vector3 origin = Vector3.zero;
+		origin.x += (TILE_SIZE * x);
+		origin.z += (TILE_SIZE * z);
+		return origin;
+	}
+
+	private void SpawnFullBoard() {
+		activeUnits = new List<GameObject>();
+
+		// ==============================
+		// Spawn all White Units
+		// ==============================
+
+		// Pawns ------------------------
+		for (int i = 0; i < 8; i++) {
+			SpawnUnit(0, GetTileCentre(i,1));
+		}
+
+		// Rooks ------------------------
+		SpawnUnit(1, GetTileCentre(0,0));
+		SpawnUnit(1, GetTileCentre(7,0));
+		
+		// Knights ----------------------
+		SpawnUnit(2, GetTileCentre(1,0));
+		SpawnUnit(2, GetTileCentre(6,0));
+
+		// Bishops ----------------------
+		SpawnUnit(3, GetTileCentre(2,0));
+		SpawnUnit(3, GetTileCentre(5,0));
+
+		// Queen ------------------------
+		SpawnUnit(4, GetTileCentre(3,0));
+
+		// King -------------------------
+		SpawnUnit(5, GetTileCentre(4,0));
+
+		// ==============================
+		// Spawn all Black Units
+		// ==============================
+
+		// Pawns ------------------------
+		for (int i = 0; i < 8; i++) {
+			SpawnUnit(6, GetTileCentre(i,6));
+		}
+
+		// Rooks ------------------------
+		SpawnUnit(7, GetTileCentre(0,7));
+		SpawnUnit(7, GetTileCentre(7,7));
+		
+		// Knights ----------------------
+		SpawnUnit(8, GetTileCentre(1,7));
+		SpawnUnit(8, GetTileCentre(6,7));
+
+		// Bishops ----------------------
+		SpawnUnit(9, GetTileCentre(2,7));
+		SpawnUnit(9, GetTileCentre(5,7));
+
+		// Queen ------------------------
+		SpawnUnit(10, GetTileCentre(3,7));
+
+		// King -------------------------
+		SpawnUnit(11, GetTileCentre(4,7));
+
 	}
 
 	private void DrawChessBoard() {
