@@ -8,11 +8,12 @@ public class BoardManager : MonoBehaviour {
 	private Chessman selectedUnit;
 	private const float TILE_SIZE = 1.0f;
 	private const float TILE_OFFSET = 0.5f;
-	private int selectAlpha;
-	private int selectNum;
+	private int selectX;
+	private int SelectZ;
 	private Quaternion orientation = Quaternion.Euler(0, 180, 0);
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
+	public bool isWhiteTurn = true;
 
 	private Vector3 offsetFix = new Vector3(-0.5f, 0f, -0.5f);
 
@@ -23,6 +24,22 @@ public class BoardManager : MonoBehaviour {
 	private void Update() {
 		UpdateSelection();
 		DrawChessBoard();
+
+		if (Input.GetMouseButtonDown(0)) {
+			if (selectX >= 0 && SelectZ >= 0) {
+				// Select the target unit
+				SelectUnit(selectX, SelectZ);
+			} else {
+				// Move to a valid space
+			}
+		}
+	}
+
+	private void SelectUnit(int x, int z) {
+		if (armyField[x, z] == null)
+			return; 
+		if (armyField[x, z].isWhite != isWhiteTurn)
+			return;
 	}
 
 	private void UpdateSelection() {
@@ -32,13 +49,13 @@ public class BoardManager : MonoBehaviour {
 
 		RaycastHit hit;
 		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("BoardLevel"))) {
-			selectAlpha = (int)hit.point.x;
-			selectNum = (int)hit.point.z;
+			selectX = (int)hit.point.x;
+			SelectZ = (int)hit.point.z;
 		} else {
-			selectAlpha = -1;
-			selectNum = -1;
+			selectX = -1;
+			SelectZ = -1;
 		}
-		print(selectAlpha + selectNum);
+		print(selectX + SelectZ);
 	}
 
 	private void SpawnUnit(int index, int x, int z) {
@@ -137,15 +154,15 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		// Draw Selection
-		if (selectAlpha >= 0 && selectNum >= 0) {
+		if (selectX >= 0 && SelectZ >= 0) {
 			Debug.DrawLine(
-				Vector3.forward * selectNum + Vector3.right * selectAlpha,
-				Vector3.forward * (selectNum + 1) + Vector3.right * (selectAlpha + 1)
+				Vector3.forward * SelectZ + Vector3.right * selectX,
+				Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1)
 			);
 
 			Debug.DrawLine(
-				Vector3.forward * (selectNum + 1) + Vector3.right * (selectAlpha + 1),
-				Vector3.forward * selectNum + Vector3.right * selectAlpha
+				Vector3.forward * (SelectZ + 1) + Vector3.right * (selectX + 1),
+				Vector3.forward * SelectZ + Vector3.right * selectX
 			);
 		}
 	}
