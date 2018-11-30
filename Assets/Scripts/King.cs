@@ -62,14 +62,16 @@ public class King : Chessman {
             }
         }
 
+        CastleCheck(ref rm);
 
         return rm;
     }
 
-    public void CastleCheck(int x, int z, ref bool[,] rm) {
+    public void CastleCheck(ref bool[,] rm) {
         Chessman c;
         int i;
-        if (CurrentX == 4 && CurrentZ == 0) {
+        // Kingside Castle
+        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7)) {
             i = CurrentX;
             while(true) {
                 i++;
@@ -77,6 +79,35 @@ public class King : Chessman {
                     break;
                 }
                 c = BoardManager.Instance.armyField[i, CurrentZ];
+                if (i == 7) {
+                    if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook)) {
+                        // A rook exists in the right corner
+                        rm[CurrentX + 2, CurrentZ] = true;
+                    } 
+                } else if (c != null) {
+                    break;
+                }
+                
+            }
+        }
+        // Queenside Castle
+        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7)) {
+            i = CurrentX;
+            while(true) {
+                i--;
+                if (i < 0) {
+                    break;
+                }
+                c = BoardManager.Instance.armyField[i, CurrentZ];
+                if (i == 0) {
+                    if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook)) {
+                        // A rook exists in the left corner
+                        rm[CurrentX - 2, CurrentZ] = true;
+                    } 
+                } else if (c != null) {
+                    break;
+                }
+                
             }
         }
     }
