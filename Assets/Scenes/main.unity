@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479c15d802aee4843a885ce2bc78f4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndicatorUI: {fileID: 478472243}
+  indicatorUI: {fileID: 478472243}
   whiteTurnIcon: {fileID: 869096202}
   blackTurnIcon: {fileID: 1861382162}
 --- !u!1 &523687032
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94ce6493682ad44429cc40ae187b65ca, type: 3}
   m_Name: 

@@ -6,7 +6,9 @@ public class RotateView : MonoBehaviour {
 	bool isStandard = true;
 
 	void Update() {
-		RotateCamera();
+		if (PlayerPrefs.GetInt("EnableCamera") == 1) {
+			RotateCamera();
+		}
 	}
 
 	private void RotateCamera() {
