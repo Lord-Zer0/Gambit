@@ -65,4 +65,10 @@ public class King : Chessman {
 
         return rm;
     }
+
+    public void CastleCheck(int x, int z, ref bool[,] rm) {
+        if (CurrentX == 4 && CurrentZ == 0) {
+
+        }
+    }
 }

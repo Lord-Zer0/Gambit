@@ -8,6 +8,7 @@ public class BoardManager : MonoBehaviour {
 	private bool[,] allowedMoves;
 	public Chessman[,] armyField {set; get;}
 	private Chessman selectedUnit;
+	public GameObject promotionUI;
 	private const float TILE_SIZE = 1.0f;
 	private const float TILE_OFFSET = 0.5f;
 	private int selectX;
@@ -86,9 +87,29 @@ public class BoardManager : MonoBehaviour {
 
 			}
 
+			if (x == EnPassant[0] && z == EnPassant[1]) {
+				if (isWhiteTurn) {
+					c = armyField[x, z - 1];
+				} else {
+					c = armyField[x, z + 1];
+				}
+				activeUnits.Remove(c.gameObject);
+				Destroy(c.gameObject);
+			}
 			EnPassant[0] = -1;
 			EnPassant[1] = -1;
 			if (selectedUnit.GetType() == typeof(Pawn)) {
+				if (z == 7) {
+					activeUnits.Remove(selectedUnit.gameObject);
+					Destroy(selectedUnit.gameObject);
+					SpawnUnit(4, x, z);
+					selectedUnit = armyField[x, z];
+				} else if (z == 0) {
+					activeUnits.Remove(selectedUnit.gameObject);
+					Destroy(selectedUnit.gameObject);
+					SpawnUnit(10, x, z);
+				}
+
 				if (selectedUnit.CurrentZ == 1 && z == 3) {
 					// When moving two steps forwards
 					EnPassant[0] = x;
@@ -278,6 +299,32 @@ public class BoardManager : MonoBehaviour {
 		print(o);
 	}
 
+	public int Promote(string target) {
+		int id;
+		switch (target)
+		{
+			case "Rook":
+				id = 1;
+				break;
+
+			case "Knight":
+				id = 2;
+				break;
+
+			case "Bishop":
+				id = 2;
+				break;
+
+			default:
+				id = 4;
+				break;
+		}
+		if (!BoardManager.Instance.isWhiteTurn){
+			id += 6;
+		}
+
+		return id;
+	}
 	private void EndGame() {
 		if (isWhiteTurn) {
 			print("White team wins");
