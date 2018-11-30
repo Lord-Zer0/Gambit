@@ -331,36 +331,37 @@ public class BoardManager : MonoBehaviour {
 		print(o);
 	}
 
-	public int Promote() {
-		int id = 0;
+	// public int Promote() {
+	// 	int id = 0;
 
-		while(id == 0) {
-			if (Input.GetKeyDown("R")) {
-				id = 1;
-				break;
-			}
-			if (Input.GetKeyDown("K")) {
-				id = 2;
-				break;
-			}
-			if (Input.GetKeyDown("B")) {
-				id = 3;
-				break;
-			}
-			if (Input.GetKeyDown("Q")) {
-				id = 4;
-				break;
-			}
-		}
+	// 	while(id == 0) {
+	// 		if (Input.GetKeyDown("R")) {
+	// 			id = 1;
+	// 			break;
+	// 		}
+	// 		if (Input.GetKeyDown("K")) {
+	// 			id = 2;
+	// 			break;
+	// 		}
+	// 		if (Input.GetKeyDown("B")) {
+	// 			id = 3;
+	// 			break;
+	// 		}
+	// 		if (Input.GetKeyDown("Q")) {
+	// 			id = 4;
+	// 			break;
+	// 		}
+	// 	}
 
-		if (!BoardManager.Instance.isWhiteTurn){
-			id += 6;
-		}
+	// 	if (!BoardManager.Instance.isWhiteTurn){
+	// 		id += 6;
+	// 	}
 
-		BoardManager.Instance.promotionUI.SetActive(false);
+	// 	BoardManager.Instance.promotionUI.SetActive(false);
 
-		return id;
-	}
+	// 	return id;
+	// }
+	
 	private void EndGame() {
 		if (isWhiteTurn) {
 			print("White team wins");
