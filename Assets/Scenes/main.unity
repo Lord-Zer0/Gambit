@@ -1396,6 +1396,11 @@ Prefab:
       propertyPath: promotionSelects.Array.data[3]
       value: 
       objectReference: {fileID: 1789237481}
+    - target: {fileID: 114292790265501970, guid: 5b856ec4f8f8cb84f861f8f8a026c288,
+        type: 2}
+      propertyPath: victoryDisplay
+      value: 
+      objectReference: {fileID: 1568531805}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b856ec4f8f8cb84f861f8f8a026c288, type: 2}
   m_IsPrefabAsset: 0
@@ -1874,7 +1879,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: White Wins
+  m_Text: 
 --- !u!222 &1568531806
 CanvasRenderer:
   m_ObjectHideFlags: 0
