@@ -156,6 +156,7 @@ public class BoardManager : MonoBehaviour {
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			selectedUnit.SetPosition(x, z);
+			selectedUnit.HasMoved = true;
 			armyField[x, z] = selectedUnit;
 			// Toggle turn order
 			isWhiteTurn = !isWhiteTurn;
@@ -361,7 +362,7 @@ public class BoardManager : MonoBehaviour {
 
 	// 	return id;
 	// }
-	
+
 	private void EndGame() {
 		if (isWhiteTurn) {
 			print("White team wins");

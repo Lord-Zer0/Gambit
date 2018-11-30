@@ -71,7 +71,7 @@ public class King : Chessman {
         Chessman c;
         int i;
         // Kingside Castle
-        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7)) {
+        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7) && !HasMoved) {
             i = CurrentX;
             while(true) {
                 i++;
@@ -80,10 +80,12 @@ public class King : Chessman {
                 }
                 c = BoardManager.Instance.armyField[i, CurrentZ];
                 if (i == 7) {
-                    if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook)) {
-                        // A rook exists in the right corner
-                        rm[CurrentX + 2, CurrentZ] = true;
-                    } 
+                    if (c != null) {
+                        if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook) && !c.HasMoved) {
+                            // A rook exists in the right corner
+                            rm[CurrentX + 2, CurrentZ] = true;
+                        } 
+                    }
                 } else if (c != null) {
                     break;
                 }
@@ -91,7 +93,7 @@ public class King : Chessman {
             }
         }
         // Queenside Castle
-        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7)) {
+        if (CurrentX == 4 && (CurrentZ == 0 || CurrentZ == 7) && !HasMoved) {
             i = CurrentX;
             while(true) {
                 i--;
@@ -100,10 +102,12 @@ public class King : Chessman {
                 }
                 c = BoardManager.Instance.armyField[i, CurrentZ];
                 if (i == 0) {
-                    if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook)) {
-                        // A rook exists in the left corner
-                        rm[CurrentX - 2, CurrentZ] = true;
-                    } 
+                    if (c != null){
+                        if (this.isWhite == c.isWhite && c.GetType() == typeof(Rook) && !c.HasMoved) {
+                            // A rook exists in the left corner
+                            rm[CurrentX - 2, CurrentZ] = true;
+                        }
+                    }
                 } else if (c != null) {
                     break;
                 }
