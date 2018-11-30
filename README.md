@@ -1,6 +1,7 @@
 # Project Title: Gambit
 
 ## simple hotseat chess game
+Repository Location: git@github.com:Lord-Zer0/Gambit.git
 
 ### Build specifications
 

@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour {
 	private int SelectZ;
 	public int[] EnPassant {set; get;}
 	private Quaternion orientation = Quaternion.Euler(0, 180, 0);
+	public Text victoryDisplay;
 	public List<Button> promotionSelects;
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
@@ -24,6 +25,7 @@ public class BoardManager : MonoBehaviour {
 
 	private void Start() {
 		Instance = this;
+		victoryDisplay.text = "";
 		promotionUI.SetActive(false);
 		SpawnFullBoard();
 	}
@@ -46,6 +48,9 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	private void SelectUnit(int x, int z) {
+		if (victoryDisplay.text != "") {
+			victoryDisplay.text = "";
+		}
 		if (armyField[x, z] == null)
 			return; 
 		if (armyField[x, z].isWhite != isWhiteTurn)
@@ -365,9 +370,9 @@ public class BoardManager : MonoBehaviour {
 
 	private void EndGame() {
 		if (isWhiteTurn) {
-			print("White team wins");
+			victoryDisplay.text = "White wins";
 		} else {
-			print("Black team wins");
+			victoryDisplay.text = "Black wins";
 		}
 
 		foreach (GameObject u in activeUnits) {
