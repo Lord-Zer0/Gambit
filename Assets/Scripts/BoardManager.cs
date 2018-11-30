@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class BoardManager : MonoBehaviour {
 	private int SelectZ;
 	public int[] EnPassant {set; get;}
 	private Quaternion orientation = Quaternion.Euler(0, 180, 0);
+	public List<Button> promotionSelects;
 	public List<GameObject> unitPrefabs;
 	public List<GameObject> activeUnits;
 	public bool isWhiteTurn = true;
@@ -22,6 +24,7 @@ public class BoardManager : MonoBehaviour {
 
 	private void Start() {
 		Instance = this;
+		promotionUI.SetActive(false);
 		SpawnFullBoard();
 	}
 
@@ -100,14 +103,20 @@ public class BoardManager : MonoBehaviour {
 			EnPassant[1] = -1;
 			if (selectedUnit.GetType() == typeof(Pawn)) {
 				if (z == 7) {
+					//promotionUI.SetActive(true);
 					activeUnits.Remove(selectedUnit.gameObject);
 					Destroy(selectedUnit.gameObject);
+
 					SpawnUnit(4, x, z);
 					selectedUnit = armyField[x, z];
 				} else if (z == 0) {
+					//promotionUI.SetActive(true);
 					activeUnits.Remove(selectedUnit.gameObject);
 					Destroy(selectedUnit.gameObject);
+
+
 					SpawnUnit(10, x, z);
+					selectedUnit = armyField[x, z];
 				}
 
 				if (selectedUnit.CurrentZ == 1 && z == 3) {
@@ -299,29 +308,33 @@ public class BoardManager : MonoBehaviour {
 		print(o);
 	}
 
-	public int Promote(string target) {
-		int id;
-		switch (target)
-		{
-			case "Rook":
+	public int Promote() {
+		int id = 0;
+
+		while(id == 0) {
+			if (Input.GetKeyDown("R")) {
 				id = 1;
 				break;
-
-			case "Knight":
+			}
+			if (Input.GetKeyDown("K")) {
 				id = 2;
 				break;
-
-			case "Bishop":
-				id = 2;
+			}
+			if (Input.GetKeyDown("B")) {
+				id = 3;
 				break;
-
-			default:
+			}
+			if (Input.GetKeyDown("Q")) {
 				id = 4;
 				break;
+			}
 		}
+
 		if (!BoardManager.Instance.isWhiteTurn){
 			id += 6;
 		}
+
+		BoardManager.Instance.promotionUI.SetActive(false);
 
 		return id;
 	}

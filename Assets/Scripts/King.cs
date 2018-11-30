@@ -67,8 +67,17 @@ public class King : Chessman {
     }
 
     public void CastleCheck(int x, int z, ref bool[,] rm) {
+        Chessman c;
+        int i;
         if (CurrentX == 4 && CurrentZ == 0) {
-
+            i = CurrentX;
+            while(true) {
+                i++;
+                if (i >= 8) {
+                    break;
+                }
+                c = BoardManager.Instance.armyField[i, CurrentZ];
+            }
         }
     }
 }
