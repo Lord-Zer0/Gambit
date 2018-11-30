@@ -13,7 +13,7 @@ Repository Location: git@github.com:Lord-Zer0/Gambit.git
   * During a turn, only the pieces of that type can be moved.
   * Game must end when a king piece is taken. Other player then wins.
 * Each piece will be tagged with type, as a child of white or black pieces.
-  * Movement is only allowed during that player’s turn and while
+  * Movement is only allowed during that player’s turn
   * If a piece moves onto an enemy it will destroy it for the remainder of the round
   * Castling should be enabled under the proper rules
 * When a piece is selected it will show where it can move
