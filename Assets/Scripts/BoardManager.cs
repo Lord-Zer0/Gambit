@@ -130,6 +130,29 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 
+			if (selectedUnit.GetType() == typeof(King)) {
+				// King is moving two spaces horizontally
+				if (selectedUnit.CurrentX + 2 == x) {
+					Chessman r = armyField[7, selectedUnit.CurrentZ].GetComponent<Chessman>();
+					if (r != null) {
+						armyField[r.CurrentX, r.CurrentZ] = null;
+						r.transform.position = AlignTile(5, r.CurrentZ);
+						r.SetPosition(5, r.CurrentZ);
+						armyField[5, selectedUnit.CurrentZ] = r;
+					}
+				}
+				if (selectedUnit.CurrentX - 2 == x) {
+					Chessman r = armyField[0, selectedUnit.CurrentZ].GetComponent<Chessman>();
+					if (r != null) {
+						armyField[r.CurrentX, r.CurrentZ] = null;
+						r.transform.position = AlignTile(3, r.CurrentZ);
+						r.SetPosition(3, r.CurrentZ);
+						armyField[3, selectedUnit.CurrentZ] = r;
+					}
+				}
+
+			}
+
 			armyField[selectedUnit.CurrentX, selectedUnit.CurrentZ] = null;
 			selectedUnit.transform.position = AlignTile(x, z);
 			selectedUnit.SetPosition(x, z);
